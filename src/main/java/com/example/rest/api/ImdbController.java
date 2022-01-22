@@ -23,4 +23,13 @@ public class ImdbController {
 		
 		return new ResponseEntity<>(movies.toMap(), HttpStatus.OK);
 	}
+	@RequestMapping("/mostpopular")
+	public ResponseEntity<Object> mostpopular() throws IOException {
+		SeleniumInit obj=new SeleniumInit(); 
+		ArrayList<JSONObject> returnedMovies= obj.initialise_most_popular();
+		JSONObject topmovies = new JSONObject();
+		topmovies.put("movies", returnedMovies);
+		
+		return new ResponseEntity<>(topmovies.toMap(), HttpStatus.OK);
+	}
 }
