@@ -15,21 +15,30 @@ public class ImdbController {
 	}
 	@RequestMapping("/topmovies")
 	public ResponseEntity<Object> topmovies() throws IOException {
-		SeleniumInit obj=new SeleniumInit(); 
+		JsoupInit obj=new JsoupInit(); 
 		ArrayList<JSONObject> returnedMovies= obj.initialise_top_movies();
 		
-		JSONObject movies = new JSONObject();
-		movies.put("movies", returnedMovies);
-		
-		return new ResponseEntity<>(movies.toMap(), HttpStatus.OK);
-	}
-	@RequestMapping("/mostpopular")
-	public ResponseEntity<Object> mostpopular() throws IOException {
-		SeleniumInit obj=new SeleniumInit(); 
-		ArrayList<JSONObject> returnedMovies= obj.initialise_most_popular();
 		JSONObject topmovies = new JSONObject();
 		topmovies.put("movies", returnedMovies);
 		
 		return new ResponseEntity<>(topmovies.toMap(), HttpStatus.OK);
+	}
+	@RequestMapping("/mostpopular")
+	public ResponseEntity<Object> mostpopular() throws IOException {
+		JsoupInit obj=new JsoupInit(); 
+		ArrayList<JSONObject> returnedMovies= obj.initialise_most_popular();
+		JSONObject popularmovies = new JSONObject();
+		popularmovies.put("movies", returnedMovies);
+		
+		return new ResponseEntity<>(popularmovies.toMap(), HttpStatus.OK);
+	}
+	@RequestMapping("/topboxoffice")
+	public ResponseEntity<Object> topboxoffice() throws IOException {
+		JsoupInit obj=new JsoupInit(); 
+		ArrayList<JSONObject> returnedMovies= obj.initialise_top_box_office();
+		JSONObject topbomovies = new JSONObject();
+		topbomovies.put("movies", returnedMovies);
+		
+		return new ResponseEntity<>(topbomovies.toMap(), HttpStatus.OK);
 	}
 }
