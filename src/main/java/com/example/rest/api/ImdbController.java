@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ImdbController {
+	public JsoupInit obj;
+	ImdbController(){
+		this.obj=new JsoupInit(); 
+	}
 	//TODO checking the api
 	@RequestMapping("/")
 	public String initialise() {
@@ -16,10 +20,8 @@ public class ImdbController {
 	}
 	//TODO endpoint for top movies
 	@RequestMapping("/topmovies")
-	public ResponseEntity<Object> topmovies() throws IOException {
-		JsoupInit obj=new JsoupInit(); 
-		ArrayList<JSONObject> returnedMovies= obj.initialise_top_movies();
-		
+	public ResponseEntity<Object> topmovies() throws IOException { 
+		ArrayList<JSONObject> returnedMovies= this.obj.initialise_top_movies();
 		JSONObject topmovies = new JSONObject();
 		topmovies.put("topmovies", returnedMovies);
 		
@@ -28,8 +30,7 @@ public class ImdbController {
 	//TODO endpoint for most popular movies
 	@RequestMapping("/popularmovies")
 	public ResponseEntity<Object> popularmovies() throws IOException {
-		JsoupInit obj=new JsoupInit(); 
-		ArrayList<JSONObject> returnedMovies= obj.initialise_popular_movies();
+		ArrayList<JSONObject> returnedMovies= this.obj.initialise_popular_movies();
 		JSONObject popularmovies = new JSONObject();
 		popularmovies.put("popularmovies", returnedMovies);
 		
@@ -38,8 +39,7 @@ public class ImdbController {
 	//TODO endpoint for top box office movies
 	@RequestMapping("/topboxoffice")
 	public ResponseEntity<Object> topboxoffice() throws IOException {
-		JsoupInit obj=new JsoupInit(); 
-		ArrayList<JSONObject> returnedMovies= obj.initialise_top_box_office();
+		ArrayList<JSONObject> returnedMovies= this.obj.initialise_top_box_office();
 		JSONObject topbomovies = new JSONObject();
 		topbomovies.put("topbomovies", returnedMovies);
 		
@@ -48,9 +48,7 @@ public class ImdbController {
 	//TODO endpoint for top shows
 		@RequestMapping("/topshows")
 		public ResponseEntity<Object> topshows() throws IOException {
-			JsoupInit obj=new JsoupInit(); 
-			ArrayList<JSONObject> returnedshows= obj.initialise_top_shows();
-			
+			ArrayList<JSONObject> returnedshows= this.obj.initialise_top_shows();
 			JSONObject topshows = new JSONObject();
 			topshows.put("topshows", returnedshows);
 			
@@ -59,10 +57,9 @@ public class ImdbController {
 		//TODO endpoint for most popular movies
 		@RequestMapping("/popularshows")
 		public ResponseEntity<Object> popularshows() throws IOException {
-			JsoupInit obj=new JsoupInit(); 
-			ArrayList<JSONObject> returnedshows= obj.initialise_popular_shows();
+			ArrayList<JSONObject> returnedshows= this.obj.initialise_popular_shows();
 			JSONObject popularshows = new JSONObject();
-			popularshows.put("popularmovies", returnedshows);
+			popularshows.put("popularshows", returnedshows);
 			
 			return new ResponseEntity<>(popularshows.toMap(), HttpStatus.OK);
 		}
